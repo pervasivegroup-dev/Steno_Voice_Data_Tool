@@ -1,0 +1,21 @@
+# Node
+node_modules
+.next
+npm-debug.log
+yarn-error.log
+.pnpm-debug.log
+
+# OS/editor
+.DS_Store
+.vscode
+.idea
+
+# Git
+.git
+.gitignore
+
+# Env
+.env
+.env.*
+!.env.example
+

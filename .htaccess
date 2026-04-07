@@ -1,0 +1,49 @@
+# Security: Block access to sensitive files
+# This file should be placed in the root directory of your web server
+
+# Block access to server files
+<FilesMatch "^(server\.js|production-server\.js|package\.json|package-lock\.json|next\.config\.mjs|tsconfig\.json|Dockerfile|deploy\.sh)$">
+    Require all denied
+</FilesMatch>
+
+# Block access to environment files
+<FilesMatch "^\.env">
+    Require all denied
+</FilesMatch>
+
+# Block access to configuration files
+<FilesMatch "^(\.git|\.gitignore|\.gitattributes)$">
+    Require all denied
+</FilesMatch>
+
+# Allow pcm-processor.js (needed for audio recording, served from public directory)
+# This must come before any blocking rules
+<FilesMatch "^pcm-processor\.js$">
+    Require all granted
+</FilesMatch>
+
+# Block access to lib directory (contains sensitive param-obfuscation.js)
+# Use RewriteRule since <Directory> is not allowed in .htaccess
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    # Block lib directory
+    RewriteRule ^lib/ - [F,L]
+</IfModule>
+# Block specific sensitive file in lib directory
+<FilesMatch "param-obfuscation\.js$">
+    Require all denied
+</FilesMatch>
+
+# Prevent directory listing
+Options -Indexes
+
+# Additional security headers
+<IfModule mod_headers.c>
+    # Prevent MIME type sniffing
+    Header set X-Content-Type-Options "nosniff"
+    # Prevent clickjacking
+    Header set X-Frame-Options "SAMEORIGIN"
+    # XSS protection
+    Header set X-XSS-Protection "1; mode=block"
+</IfModule>
+
