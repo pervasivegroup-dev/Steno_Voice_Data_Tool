@@ -1,9 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(find /c/Users/Lars9/Github/Steno-Voice-Online/.claude/worktrees/gallant-meitner -type f \\\\\\(-name *.txt -o -name *.log -o -name *.json -o -name *.config \\\\\\))",
-      "Bash(wc -l /c/Users/Lars9/Github/Steno-Voice-Online/.claude/worktrees/gallant-meitner/lib/*.ts /c/Users/Lars9/Github/Steno-Voice-Online/.claude/worktrees/gallant-meitner/app/**/*.ts*)",
-      "Bash(git rm:*)"
-    ]
-  }
-}
